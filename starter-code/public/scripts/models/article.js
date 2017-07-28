@@ -13,17 +13,20 @@ var app = app || {};
 
   // REVIEW: With ES6 arrow functions, if the function only has one parameter, you don't need parentheses.
   //         This is similar to saying Article.loadAll = function(rows).
-    // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+    // COMMENT-DONE: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+    //
+    // ANSWER === Loads the articles in order based on specified sorting algorithm.
   Article.loadAll = rows => {
     rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
     Article.all = rows.map(ele => new Article(ele));
   };
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // COMMENT-DONE: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  //
+  // ANSWER === Gets the articles loads the results into Article.all via Article.loadAll, executes our callback.
   Article.fetchAll = callback => {
     $.get('/articles')
-    .then(
-      results => {
+    .then( results => {
         Article.loadAll(results);
         callback();
       }
@@ -54,7 +57,9 @@ var app = app || {};
                       }, []);
   };
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // COMMENT-DONE: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+
+  // ANSWER Calculates the number of words across every article written by each author
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(author => {
       return {
@@ -74,7 +79,9 @@ var app = app || {};
     }
   };
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // COMMENT-DONE: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  //
+  // Delets the articles from the back --- Does not get called in these true...  Sends a request to the server to delete all articles.
   Article.truncateTable = callback => {
     $.ajax({
       url: '/articles',

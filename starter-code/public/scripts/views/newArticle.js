@@ -4,7 +4,9 @@ var app = app || {};
 (function(module) {
   const newArticle = {};
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // COMMENT-DONE: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  //
+  // ANSWER === Allows the user to create new articles.  Called on this page below.  On Submit it pushes these articles into the database.
   newArticle.initNewArticlePage = function() {
     $('.tab-content').show();
     $('#export-field').hide();

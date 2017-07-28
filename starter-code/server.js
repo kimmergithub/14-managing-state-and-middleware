@@ -18,8 +18,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
 
-// COMMENT: What is this function doing? Why do we need it? Where does it receive a request from?
-// (put your response in a comment here)
+// COMMENT-DONE: What is this function doing? Why do we need it? Where does it receive a request from?
+// (Quering the gitHub api and passing in the user's authorization token... ) -- fired in repos.js by requestRepos().
 function proxyGitHub(request, response) {
   console.log('Routing GitHub request for', request.params[0]);
   (requestProxy({
@@ -29,10 +29,14 @@ function proxyGitHub(request, response) {
 }
 
 
-// COMMENT: What is this route doing? Where does it receive a request from?
-// (put your response in a comment here)
+// COMMENT-DONE: What is this route doing? Where does it receive a request from?
+//
+// ANSWER === Routes user to requested page and or page behavoir.
+// req. from adress bar
 app.get('/new', (request, response) => response.sendFile('new.html', {root: './public'}));
+// req. from adress bar
 app.get('/admin', (request, response) => response.sendFile('admin.html', {root: './public'}));
+//  initial request comes from the getRepos function, which is fired off by navigating to the about page.
 app.get('/github/*', proxyGitHub);
 
 // REVIEW: This is a new route to find a specific instance of an article record from the DB.
@@ -106,8 +110,10 @@ app.post('/articles', function(request, response) {
 });
 
 
-// COMMENT: What is this route doing? Where does it receive a request from?
+// COMMENT-DONE: What is this route doing? Where does it receive a request from?
 // (put your response in a comment here)
+//
+// ANSWER === Makes a request to update an article in the database.  Called by updateRecord in article.js
 app.put('/articles/:id', (request, response) => {
   client.query(`
     UPDATE authors
